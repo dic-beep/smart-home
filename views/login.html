@@ -1,0 +1,30 @@
+{{template "setup" .}}
+{{define "main"}}
+    <div class="container mt-5 pt-5">
+        <div class="row">
+            <div class="col-12 col-sm-8 col-md-6 m-auto">
+                <div class="card">
+                    <div class="card-body">
+                        <form action="/dashboard" method="post">
+                            <!-- title -->
+                            <p class="h1 text-center">My Home</p>
+
+                            <!-- username field -->
+                            <label for="username" class="fw-bold text-md">Username</label><br>
+                            <input type="text" name="username" id="username" class="form-control my-3 py-2" placeholder="Masukkan username">
+
+                            <!-- password field -->
+                            <label for="pass" class="fw-bold text-md">Passsword</label>
+                            <input type="password" name="pass" id="pass" class="form-control my-3 py-2" placeholder="Masukkan Password">
+
+                            <!-- submit button -->
+                             <div class="d-grid">
+                                <button type="submit" class="btn btn-primary">Masuk</button>
+                             </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{{end}}
