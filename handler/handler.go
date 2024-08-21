@@ -2,7 +2,6 @@ package handler
 
 import (
 	"fmt"
-	"io/ioutil"
 	"log"
 	"net/http"
 	"path"
@@ -40,7 +39,7 @@ func Dashboard(w http.ResponseWriter, r *http.Request) {
 		} else if state == "off" {
 			ledState = false
 		} else {
-			http.Error(w, "Invalid state", http.StatusBadRequest)
+			log.Println("invalid state")
 			return
 		}
 
@@ -51,8 +50,10 @@ func Dashboard(w http.ResponseWriter, r *http.Request) {
 			http.Error(w, err.Error(), http.StatusInternalServerError)
 			return
 		}
+		//set header
 		req.Header.Set("Content-Type", "application/json")
 
+		//send http request
 		client := &http.Client{}
 		resp, err := client.Do(req)
 		if err != nil {
@@ -61,13 +62,6 @@ func Dashboard(w http.ResponseWriter, r *http.Request) {
 		}
 		defer resp.Body.Close()
 
-		body, err := ioutil.ReadAll(resp.Body)
-		if err != nil {
-			http.Error(w, err.Error(), http.StatusInternalServerError)
-			return
-		}
-
-		fmt.Fprintf(w, "LED state updated: %s", body)
 	}
 }
 
